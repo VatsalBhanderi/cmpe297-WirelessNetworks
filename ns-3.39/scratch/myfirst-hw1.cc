@@ -33,15 +33,15 @@ NS_LOG_COMPONENT_DEFINE("FirstScriptExample");
 int
 main(int argc, char* argv[])
 {
-    std::string datarate = "5Mbps";
-    std::string packetSize = "1024";
+    std::string dataSpeed = "5Mbps";
+    std::string packetVal = "1024";
     
     CommandLine cmd(__FILE__);
-    cmd.AddValue("datarate", "Data rate of the Channel", datarate);
-    cmd.AddValue("packetSize", "Packet Size of Message", packetSize);
+    cmd.AddValue("dataSpeed", "Data rate of the Channel", dataSpeed);
+    cmd.AddValue("packetVal", "Packet Size of Message", packetVal);
     cmd.Parse(argc, argv);
 
-    std::cout << "datarate - " + datarate  + "\n" + "Packet Size - " + packetSize + "\n"<< std::endl;
+    std::cout << "dataSpeed - " + dataSpeed  + "\n" + "Packet Size - " + packetVal + "\n"<< std::endl;
 
     Time::SetResolution(Time::NS);
     LogComponentEnable("UdpEchoClientApplication", LOG_LEVEL_INFO);
@@ -51,7 +51,7 @@ main(int argc, char* argv[])
     nodes.Create(2);
 
     PointToPointHelper pointToPoint;
-    pointToPoint.SetDeviceAttribute("DataRate", StringValue(datarate));
+    pointToPoint.SetDeviceAttribute("DataRate", StringValue(dataSpeed));
     pointToPoint.SetChannelAttribute("Delay", StringValue("1ms"));
 
     NetDeviceContainer devices;
@@ -74,7 +74,7 @@ main(int argc, char* argv[])
     UdpEchoClientHelper echoClient(interfaces.GetAddress(1), 9);
     echoClient.SetAttribute("MaxPackets", UintegerValue(1));
     echoClient.SetAttribute("Interval", TimeValue(Seconds(1.0)));
-    echoClient.SetAttribute("PacketSize", UintegerValue(std::stoi(packetSize)));
+    echoClient.SetAttribute("PacketSize", UintegerValue(std::stoi(packetVal)));
 
     ApplicationContainer clientApps = echoClient.Install(nodes.Get(0));
     clientApps.Start(Seconds(2.0));

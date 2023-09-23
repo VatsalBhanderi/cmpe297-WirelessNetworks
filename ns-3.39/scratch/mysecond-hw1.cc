@@ -87,7 +87,7 @@ main(int argc, char* argv[])
     Ipv4InterfaceContainer csmaInterfaces;
     csmaInterfaces = address.Assign(csmaDevices);
 
-    UdpEchoServerHelper echoServer1(9);
+    UdpEchoServerHelper echoServer1(15);
     UdpEchoServerHelper echoServer2(10);
 
 
@@ -97,7 +97,7 @@ main(int argc, char* argv[])
     serverApps.Start(Seconds(1.0));
     serverApps.Stop(Seconds(10.0));
 
-    UdpEchoClientHelper echoClient1(csmaInterfaces.GetAddress(nCsma), 9);
+    UdpEchoClientHelper echoClient1(csmaInterfaces.GetAddress(nCsma), 15);
     UdpEchoClientHelper echoClient2(csmaInterfaces.GetAddress(nCsma), 10);
 
     echoClient1.SetAttribute("MaxPackets", UintegerValue(1));
